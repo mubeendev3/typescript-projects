@@ -33,54 +33,64 @@ class Calculator {
     setTimeout(() => {
       glitchAnimation.stop();
       this.askQuestion();
-    }, 5000);
+    }, 4500);
   }
   async addition(num1: number, num2: number): Promise<void> {
-    console.log(`${num1} + ${num2} = ${num1 + num2}`);
+    console.log(
+      chalk.bgGreen.bold(` ---> ${num1} + ${num2} = ${num1 + num2} `)
+    );
   }
   async subtraction(num1: number, num2: number): Promise<void> {
-    console.log(`${num1} - ${num2} = ${num1 - num2}`);
+    console.log(
+      chalk.bgGreen.bold(` ---> ${num1} - ${num2} = ${num1 - num2} `)
+    );
   }
   async multiplication(num1: number, num2: number): Promise<void> {
-    console.log(`${num1} * ${num2} = ${num1 * num2}`);
+    console.log(
+      chalk.bgGreen.bold(` ---> ${num1} * ${num2} = ${num1 * num2} `)
+    );
   }
   async division(num1: number, num2: number): Promise<void> {
-    console.log(`${num1} / ${num2} = ${num1 / num2}`);
+    console.log(
+      chalk.bgGreen.bold(` ---> ${num1} / ${num2} = ${num1 / num2} `)
+    );
   }
   async power(num1: number, num2: number): Promise<void> {
-    console.log(`${num1} ^ ${num2} = ${num1 ** num2}`);
+    console.log(
+      chalk.bgGreen.bold(` ---> ${num1} ^ ${num2} = ${num1 ** num2} `)
+    );
   }
-  //   async getUserInput(): Promise<void> {
-  //     let numbers = await inquirer.prompt([
-
-  //     ]);
-  //     const firstNumber: number = numbers.number1;
-  //     const secondNumber: number = numbers.number2;
-  //   }
 
   async askQuestion(): Promise<void> {
     const input = await inquirer.prompt([
       {
         name: "selectedOperator",
         type: "list",
-        message: "Which operation you want to perform?:",
+        message: chalk.green.underline(
+          "\nWhich operation you want to perform?:\n"
+        ),
         choices: [
           "+ Addition",
           "- Subtraction",
           "* Multiplication",
           "/ Division",
           "^ Power",
+          //   chalk.hex("#F4DF4EFF")("+ Addition"),
+          //   chalk.hex("#F4DF4EFF")("- Subtraction"),
+          //   chalk.hex("#F4DF4EFF")("* Multiplication"),
+          //   chalk.hex("#F4DF4EFF")("/ Division"),
+          //   chalk.hex("#F4DF4EFF")("^ Power"),
         ],
       },
       {
         type: "number",
         name: "number1",
-        message: "Enter the value for number 1: ",
+        message: chalk.hex("#e0b609")("Enter the value for number 1: "),
       },
       {
         type: "number",
         name: "number2",
-        message: "Enter the value for number 2: ",
+        message: chalk.hex("#e0b609")("Enter the value for number 2: "),
       },
     ]);
 
@@ -106,6 +116,30 @@ class Calculator {
       default:
         console.log("No Such Operator Found!");
         break;
+    }
+    while (true) {
+      const answer = await inquirer.prompt([
+        {
+          type: "input",
+          name: "userInput",
+          message: chalk.green.underline(
+            "\nDo you want to perform calculation again? type y or n: "
+          ),
+        },
+      ]);
+      if (answer.userInput === "y".toLowerCase()) {
+        await this.askQuestion();
+      } else {
+        let endingAnimation = chalkAnimation.glitch(
+          chalk.hex("#e0b609")(`Thank you for using our Magical Calculator!`)
+        );
+
+        // Stop the animation after 5 seconds
+        setTimeout(() => {
+          endingAnimation.stop();
+        }, 1500);
+        break;
+      }
     }
   }
   async main() {
