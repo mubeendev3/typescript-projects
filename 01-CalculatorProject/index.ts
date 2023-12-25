@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
@@ -35,110 +36,112 @@ class Calculator {
       this.askQuestion();
     }, 4500);
   }
-  async addition(num1: number, num2: number): Promise<void> {
+  addition(num1: number, num2: number): void {
     console.log(
       chalk.bgGreen.bold(` ---> ${num1} + ${num2} = ${num1 + num2} `)
     );
   }
-  async subtraction(num1: number, num2: number): Promise<void> {
+  subtraction(num1: number, num2: number): void {
     console.log(
       chalk.bgGreen.bold(` ---> ${num1} - ${num2} = ${num1 - num2} `)
     );
   }
-  async multiplication(num1: number, num2: number): Promise<void> {
+  multiplication(num1: number, num2: number): void {
     console.log(
       chalk.bgGreen.bold(` ---> ${num1} * ${num2} = ${num1 * num2} `)
     );
   }
-  async division(num1: number, num2: number): Promise<void> {
+  division(num1: number, num2: number): void {
     console.log(
       chalk.bgGreen.bold(` ---> ${num1} / ${num2} = ${num1 / num2} `)
     );
   }
-  async power(num1: number, num2: number): Promise<void> {
+  power(num1: number, num2: number): void {
     console.log(
       chalk.bgGreen.bold(` ---> ${num1} ^ ${num2} = ${num1 ** num2} `)
     );
   }
 
   async askQuestion(): Promise<void> {
-    const input = await inquirer.prompt([
-      {
-        name: "selectedOperator",
-        type: "list",
-        message: chalk.green.underline(
-          "\nWhich operation you want to perform?:\n"
-        ),
-        choices: [
-          "+ Addition",
-          "- Subtraction",
-          "* Multiplication",
-          "/ Division",
-          "^ Power",
-          //   chalk.hex("#F4DF4EFF")("+ Addition"),
-          //   chalk.hex("#F4DF4EFF")("- Subtraction"),
-          //   chalk.hex("#F4DF4EFF")("* Multiplication"),
-          //   chalk.hex("#F4DF4EFF")("/ Division"),
-          //   chalk.hex("#F4DF4EFF")("^ Power"),
-        ],
-      },
-      {
-        type: "number",
-        name: "number1",
-        message: chalk.hex("#e0b609")("Enter the value for number 1: "),
-      },
-      {
-        type: "number",
-        name: "number2",
-        message: chalk.hex("#e0b609")("Enter the value for number 2: "),
-      },
-    ]);
-
-    // Transferring the flow according to selected operator
-
-    switch (input.selectedOperator) {
-      case "+ Addition":
-        this.addition(input.number1, input.number2);
-        break;
-      case "- Subtraction":
-        this.subtraction(input.number1, input.number2);
-        break;
-      case "* Multiplication":
-        this.multiplication(input.number1, input.number2);
-        break;
-      case "/ Division":
-        this.division(input.number1, input.number2);
-        break;
-      case "^ Power":
-        this.power(input.number1, input.number2);
-        break;
-
-      default:
-        console.log("No Such Operator Found!");
-        break;
-    }
+    const choices = [
+      "+ Addition",
+      "- Subtraction",
+      "* Multiplication",
+      "/ Division",
+      "^ Power",
+      "> Exit",
+    ];
     while (true) {
-      const answer = await inquirer.prompt([
+      const operator = await inquirer.prompt([
         {
-          type: "input",
-          name: "userInput",
+          name: "selectedOperator",
+          type: "list",
           message: chalk.green.underline(
-            "\nDo you want to perform calculation again? type y or n: "
+            "\nWhich operation you want to perform?:\n"
           ),
+          choices: [
+            "+ Addition",
+            "- Subtraction",
+            "* Multiplication",
+            "/ Division",
+            "^ Power",
+            "> Exit",
+          ],
         },
       ]);
-      if (answer.userInput === "y".toLowerCase()) {
-        await this.askQuestion();
-      } else {
-        let endingAnimation = chalkAnimation.glitch(
-          chalk.hex("#e0b609")(`Thank you for using our Magical Calculator!`)
+      if (operator.selectedOperator === choices[5]) {
+        let endingAnimation = chalkAnimation.karaoke(
+          `Thank you for using our Magical Calculator!`
         );
 
         // Stop the animation after 5 seconds
         setTimeout(() => {
           endingAnimation.stop();
-        }, 1500);
+        }, 4000);
         break;
+      } else {
+        const input = await inquirer.prompt([
+          {
+            type: "number",
+            name: "number1",
+            message: chalk.hex("#e0b609")("Enter the value for number 1: "),
+          },
+          {
+            type: "number",
+            name: "number2",
+            message: chalk.hex("#e0b609")("Enter the value for number 2: "),
+          },
+        ]);
+        if (
+          !isNaN(parseFloat(input.number1)) &&
+          !isNaN(parseFloat(input.number2))
+        ) {
+          // Transferring the flow according to selected operator
+
+          switch (operator.selectedOperator) {
+            case "+ Addition":
+              this.addition(input.number1, input.number2);
+              break;
+            case "- Subtraction":
+              this.subtraction(input.number1, input.number2);
+              break;
+            case "* Multiplication":
+              this.multiplication(input.number1, input.number2);
+              break;
+            case "/ Division":
+              this.division(input.number1, input.number2);
+              break;
+            case "^ Power":
+              this.power(input.number1, input.number2);
+              break;
+
+            default:
+              console.log("No Such Operator Found!");
+              break;
+          }
+        } else {
+          console.log(chalk.bgRed` Please enter a valid number `);
+        }
       }
     }
   }
@@ -147,5 +150,5 @@ class Calculator {
   }
 }
 
-const myCalculator: Calculator = new Calculator();
+const myCalculator = new Calculator();
 myCalculator.main();
