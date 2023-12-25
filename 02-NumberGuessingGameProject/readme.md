@@ -7,6 +7,16 @@ Welcome to the Number Guessing Game CLI, a fun and interactive command-line game
 - 🌈 Rainbow-themed CLI interface powered by Chalk
 - 🔢 Guess the secret number and conquer the game
 - 🚀 Engaging animations for a delightful experience
+- 🎲 Randomly generated secret number.
+- 🎨 Animated ASCII art for an engaging start.
+- 💬 User-friendly prompts and messages.
+- 🔁 Option to restart the game after completion.
+
+## Dependencies
+
+- [chalk](https://www.npmjs.com/package/chalk)
+- [chalk-animation](https://www.npmjs.com/package/chalk-animation)
+- [inquirer](https://www.npmjs.com/package/inquirer)
 
 ## Installation & Usage
 

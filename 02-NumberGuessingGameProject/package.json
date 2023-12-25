@@ -24,10 +24,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/mubeen-numguessing.git"
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/mubeen-numguessing/issues"
+    "url": "https://github.com/mubeendev3/typescript-projects/issues"
   },
-  "homepage": "https://github.com/your-username/mubeen-numguessing#readme"
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/02-NumberGuessingGameProject#readme"
+  
 }
