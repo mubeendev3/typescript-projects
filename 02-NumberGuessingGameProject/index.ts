@@ -82,7 +82,7 @@ Guess the secret number and conquer the game!
           name: "userNumber",
           type: "number",
           message: chalk.green.underline.bold(
-            "\nTime to guess! What's the number?"
+            "\nTime to guess! What's the number between 1-10?"
           ),
         },
       ]);
