@@ -75,7 +75,7 @@ Guess the secret number and conquer the game!
                 {
                     name: "userNumber",
                     type: "number",
-                    message: chalk.green.underline.bold("\nTime to guess! What's the number?"),
+                    message: chalk.green.underline.bold("\nTime to guess! What's the number between 1-10?"),
                 },
             ]);
             // This variable is used to get the difference between the target value and the user guess
