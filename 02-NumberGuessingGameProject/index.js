@@ -3,14 +3,14 @@ import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
 import boxen from "boxen";
-import { clear } from "console";
+import clear from "clear";
 class NumberGuessingGame {
     targetNumber;
     constructor() {
         // Initialize the target number randomly using Math library
         this.targetNumber = Math.floor(Math.random() * 10) + 1;
     }
-    // This method is used to stop the animations or add delay
+    // This method is used to stop the animations
     stopAnimation(animation, duration) {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -58,10 +58,12 @@ class NumberGuessingGame {
                 name: "userDecision",
                 type: "list",
                 message: chalk.magenta.bold.underline("\nFeeling lucky for another try?"),
-                choices: ["Yes", "No"],
+                choices: [
+                    chalk.hex("#F38F17").bold("Yes, I can definitely do it this time."),
+                    chalk.hex("#F38F17").bold("No, I'll pass this time... :'("),
+                ],
             },
         ]);
-        console.log("\n");
         if (restartGame.userDecision === "Yes") {
             this.gameLogic();
         }
@@ -83,15 +85,27 @@ class NumberGuessingGame {
                     message: chalk.green.underline.bold("\nTime to guess! What's the number between 1-10?"),
                 },
             ]);
-            // This variable is used to get the difference between the target value and the user guess
+            /*
+            This variable is used to get the difference between the target value and the user guess
+            1. i.e differece = targetNumber - userNumber => 8 - 5 => 3 --> It means 3rd else it part will
+            be executed (You're close! Keep going!)
+            2. i.e differece = targetNumber - userNumber => 8 - 7 => 1 --> It means 2nd else if part will
+            be executed (Oof, so close! One number away from blowing my mind!)
+            3. i.e differece = targetNumber - userNumber => 8 - 8 => 0 --> It means 1st if part will be
+            executed (" Congratulations! You guessed the correct number! ")
+            */
             const differece = Math.abs(this.targetNumber - userInput.userNumber);
             if (userLife !== 1) {
                 if (differece === 0) {
                     console.log(chalk.bgMagenta.bold(" Congratulations! You guessed the correct number! "));
                     break;
                 }
+                else if (differece < 2) {
+                    console.log(chalk.yellow.bold("Oof, so close! One number away from blowing my mind!"));
+                    userLife--;
+                }
                 else if (differece <= 2) {
-                    console.log(chalk.yellow("You're too close! Keep going!"));
+                    console.log(chalk.yellow("You're close! Keep going!"));
                     userLife--;
                 }
                 else {
@@ -107,6 +121,7 @@ class NumberGuessingGame {
         this.restartGame();
     }
     async main() {
+        // This method is used to clear the terminal before starting the main execution
         clear();
         this.greeting();
     }
