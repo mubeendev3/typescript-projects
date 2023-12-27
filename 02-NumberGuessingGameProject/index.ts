@@ -2,6 +2,8 @@
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
+import boxen from "boxen";
+import { clear } from "console";
 
 class NumberGuessingGame {
   private targetNumber: number;
@@ -21,30 +23,38 @@ class NumberGuessingGame {
   }
   // This method is used to display starting of our game
   async greeting() {
-    const animation = chalkAnimation.rainbow(`
-Guess the secret number and conquer the game!
-     ___________________________________
-    | _____ |   | ___ | ___ ___ | |   | |
-    | |   | |_| |__ | |_| __|____ | | | |
-    | | | |_________|__ |______ |___|_| |
-    | |_|   | _______ |______ |   | ____|
-    | ___ | |____ | |x_____ | |_| |____ |
-    |___|_|____ | |   ___ | |________ | |
-    |   ________| | |__ | |______ | | | |
-    | | | ________| | __|____ | | | __| |
-    |_| |__ |   | __|__ | ____| | |_| __|
-    |   ____| | |____ | |__ |   |__ |__ |
-    | |_______|_______|___|___|___|_____|
+    const animation = chalkAnimation.rainbow(
+      boxen(
+        `
+      Guess the secret number and conquer the game!
+           ___________________________________
+          | _____ |   | ___ | ___ ___ | |   | |
+          | |   | |_| |__ | |_| __|____ | | | |
+          | | | |_________|__ |______ |___|_| |
+          | |_|   | _______ |______ |   | ____|
+          | ___ | |____ | |x_____ | |_| |____ |
+          |___|_|____ | |   ___ | |________ | |
+          |   ________| | |__ | |______ | | | |
+          | | | ________| | __|____ | | | __| |
+          |_| |__ |   | __|__ | ____| | |_| __|
+          |   ____| | |____ | |__ |   |__ |__ |
+          | |_______|_______|___|___|___|_____|
 
     ______           __     __)                   
   (, /    )        (, /|  /|       /)            
     /---(            / | / |      (/_  _   _ __  
  ) / ____) (_/_   ) /  |/  |_(_(_/_) _(/__(/_/ (_ ... <3
 (_/ (     .-/    (_/   '                         
-         (_/                                     
-
-
-        `);
+         (_/`,
+        {
+          title: "Number Guessing Game Project",
+          titleAlignment: "center",
+          borderStyle: "double",
+          padding: 1,
+          margin: 1,
+        }
+      )
+    );
     await this.stopAnimation(animation, 2);
     this.gameLogic();
   }
@@ -114,6 +124,7 @@ Guess the secret number and conquer the game!
     this.restartGame();
   }
   async main() {
+    clear();
     this.greeting();
   }
 }
