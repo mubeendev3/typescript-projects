@@ -2,9 +2,12 @@
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
+import boxen from "boxen";
+import { clear } from "console";
 class Calculator {
     async welcomeMessage() {
-        let glitchAnimation = chalkAnimation.karaoke(`Hey! Get ready for some math magic with our calculator. xD 😅
+        let glitchAnimation = chalkAnimation.karaoke(boxen(`
+    Hey! Get ready for some math magic with our calculator. xD 😅
                        _____________________
                       |  _________________  |
                       | | mubeendev3   0. | |
@@ -20,18 +23,26 @@ class Calculator {
                       | |___|___|___| |___| |
                       |_____________________|
       
-             ______           __     __)                   
-            (, /    )        (, /|  /|       /)            
-              /---(            / | / |      (/_  _   _ __  
-           ) / ____) (_/_   ) /  |/  |_(_(_/_) _(/__(/_/ (_ ... <3
-          (_/ (     .-/    (_/   '                         
-                   (_/                                     
-      `);
+          ______           __     __)                   
+        (, /    )        (, /|  /|       /)            
+          /---(            / | / |      (/_  _   _ __  
+       ) / ____) (_/_   ) /  |/  |_(_(_/_) _(/__(/_/ (_ ... <3
+      (_/ (     .-/    (_/   '                         
+               (_/                                     
+    `, 
+        // { padding: 1, margin: 1, borderStyle: "double" }
+        {
+            title: "CLI Calculator Project",
+            titleAlignment: "center",
+            borderStyle: "double",
+            padding: 1,
+            margin: 1,
+        }), 2);
         // Stop the animation after 5 seconds
         setTimeout(() => {
             glitchAnimation.stop();
             this.askQuestion();
-        }, 4500);
+        }, 3000);
     }
     addition(num1, num2) {
         console.log(chalk.bgGreen.bold(` ---> ${num1} + ${num2} = ${num1 + num2} `));
@@ -78,7 +89,7 @@ class Calculator {
                 // Stop the animation after 5 seconds
                 setTimeout(() => {
                     endingAnimation.stop();
-                }, 4000);
+                }, 3500);
                 break;
             }
             else {
@@ -94,8 +105,7 @@ class Calculator {
                         message: chalk.hex("#e0b609")("Enter the value for number 2: "),
                     },
                 ]);
-                if (!isNaN(parseFloat(input.number1)) &&
-                    !isNaN(parseFloat(input.number2))) {
+                if (!isNaN(input.number1) && !isNaN(input.number2)) {
                     // Transferring the flow according to selected operator
                     switch (operator.selectedOperator) {
                         case "+ Addition":
@@ -125,6 +135,7 @@ class Calculator {
         }
     }
     async main() {
+        clear();
         await this.welcomeMessage();
     }
 }
