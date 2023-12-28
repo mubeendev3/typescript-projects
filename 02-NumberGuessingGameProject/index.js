@@ -90,31 +90,36 @@ class NumberGuessingGame {
                         message: chalk.green.underline.bold(`\nTime to guess! What's the number between 1-10?`),
                     },
                 ]);
-                /*
-              This variable is used to get the difference between the target value and the user guess
-              1. i.e differece = targetNumber - userNumber => 8 - 5 => 3 --> It means 3rd else it part will
-              be executed (You're close! Keep going!)
-              2. i.e differece = targetNumber - userNumber => 8 - 7 => 1 --> It means 2nd else if part will
-              be executed (Oof, so close! One number away from blowing my mind!)
-              3. i.e differece = targetNumber - userNumber => 8 - 8 => 0 --> It means 1st if part will be
-              executed (" Congratulations! You guessed the correct number! ")
-              */
-                const differece = Math.abs(targetNumber - userInput.userNumber);
-                if (differece === 0) {
-                    console.log(chalk.bgMagenta.bold(` Congratulations! You guessed the correct number! It was ${targetNumber} `));
-                    break;
-                }
-                else if (differece < 2) {
-                    console.log(chalk.blue.bold.italic("Oof, so close! One number away from blowing my mind!"));
-                    userLife--;
-                }
-                else if (differece <= 2) {
-                    console.log(chalk.blue.bold("You're close! Keep going!"));
-                    userLife--;
+                if (!isNaN(userInput.userNumber)) {
+                    /*
+                  This variable is used to get the difference between the target value and the user guess
+                  1. i.e differece = targetNumber - userNumber => 8 - 5 => 3 --> It means 3rd else it part will
+                  be executed (You're close! Keep going!)
+                  2. i.e differece = targetNumber - userNumber => 8 - 7 => 1 --> It means 2nd else if part will
+                  be executed (Oof, so close! One number away from blowing my mind!)
+                  3. i.e differece = targetNumber - userNumber => 8 - 8 => 0 --> It means 1st if part will be
+                  executed (" Congratulations! You guessed the correct number! ")
+                  */
+                    const differece = Math.abs(targetNumber - userInput.userNumber);
+                    if (differece === 0) {
+                        console.log(chalk.bgMagenta.bold(` Congratulations! You guessed the correct number! It was ${targetNumber} `));
+                        break;
+                    }
+                    else if (differece < 2) {
+                        console.log(chalk.blue.bold.italic("Oof, so close! One number away from blowing my mind!"));
+                        userLife--;
+                    }
+                    else if (differece <= 2) {
+                        console.log(chalk.blue.bold("You're close! Keep going!"));
+                        userLife--;
+                    }
+                    else {
+                        userLife--;
+                        console.log(chalk.blue.bold("You're far away. Try again!"));
+                    }
                 }
                 else {
-                    userLife--;
-                    console.log(chalk.blue.bold("You're far away. Try again!"));
+                    console.log(chalk.red.bold(`Please Enter a Valid Number`));
                 }
             }
             else {

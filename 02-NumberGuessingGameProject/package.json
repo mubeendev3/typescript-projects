@@ -1,6 +1,6 @@
 {
   "name": "mubeen-numguessing",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A command-line number guessing game built with Node.js and Inquirer.",
   "main": "index.js",
   "type": "module",
