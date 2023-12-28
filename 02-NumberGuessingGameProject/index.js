@@ -5,10 +5,10 @@ import inquirer from "inquirer";
 import boxen from "boxen";
 import clear from "clear";
 class NumberGuessingGame {
-    targetNumber;
-    constructor() {
-        // Initialize the target number randomly using Math library
-        this.targetNumber = Math.floor(Math.random() * 10) + 1;
+    // This method generated the random number every time the game starts
+    generateRandomNumber() {
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+        return randomNumber;
     }
     // This method is used to stop the animations
     stopAnimation(animation, duration) {
@@ -48,23 +48,26 @@ class NumberGuessingGame {
             padding: 1,
             margin: 1,
         }));
-        await this.stopAnimation(animation, 2);
+        await this.stopAnimation(animation, 3);
         this.gameLogic();
     }
     // This method is used to restart the game
     async restartGame() {
+        const endingChoices = [
+            "Yes, I can definitely do it this time.",
+            "No, I'm done :'(",
+        ];
         const restartGame = await inquirer.prompt([
             {
                 name: "userDecision",
                 type: "list",
-                message: chalk.magenta.bold.underline("\nFeeling lucky for another try?"),
-                choices: [
-                    chalk.hex("#F38F17").bold("Yes, I can definitely do it this time."),
-                    chalk.hex("#F38F17").bold("No, I'll pass this time... :'("),
-                ],
+                message: chalk
+                    .hex("#F77F00")
+                    .underline.bold("\nFeeling lucky for another try?"),
+                choices: endingChoices,
             },
         ]);
-        if (restartGame.userDecision === "Yes") {
+        if (restartGame.userDecision === endingChoices[0]) {
             this.gameLogic();
         }
         else {
@@ -75,46 +78,47 @@ class NumberGuessingGame {
     // This is the main game logic
     async gameLogic() {
         let userLife = 5;
+        const targetNumber = this.generateRandomNumber();
         while (true) {
-            console.log(chalk.bgRed(` ${userLife} Lives Remaining! `));
-            // Getting input from the user
-            const userInput = await inquirer.prompt([
-                {
-                    name: "userNumber",
-                    type: "number",
-                    message: chalk.green.underline.bold("\nTime to guess! What's the number between 1-10?"),
-                },
-            ]);
-            /*
-            This variable is used to get the difference between the target value and the user guess
-            1. i.e differece = targetNumber - userNumber => 8 - 5 => 3 --> It means 3rd else it part will
-            be executed (You're close! Keep going!)
-            2. i.e differece = targetNumber - userNumber => 8 - 7 => 1 --> It means 2nd else if part will
-            be executed (Oof, so close! One number away from blowing my mind!)
-            3. i.e differece = targetNumber - userNumber => 8 - 8 => 0 --> It means 1st if part will be
-            executed (" Congratulations! You guessed the correct number! ")
-            */
-            const differece = Math.abs(this.targetNumber - userInput.userNumber);
-            if (userLife !== 1) {
+            if (userLife !== 0) {
+                console.log(chalk.bgRed(` ${userLife} Lives Remaining! `));
+                // Getting input from the user
+                const userInput = await inquirer.prompt([
+                    {
+                        name: "userNumber",
+                        type: "number",
+                        message: chalk.green.underline.bold(`\nTime to guess! What's the number between 1-10?`),
+                    },
+                ]);
+                /*
+              This variable is used to get the difference between the target value and the user guess
+              1. i.e differece = targetNumber - userNumber => 8 - 5 => 3 --> It means 3rd else it part will
+              be executed (You're close! Keep going!)
+              2. i.e differece = targetNumber - userNumber => 8 - 7 => 1 --> It means 2nd else if part will
+              be executed (Oof, so close! One number away from blowing my mind!)
+              3. i.e differece = targetNumber - userNumber => 8 - 8 => 0 --> It means 1st if part will be
+              executed (" Congratulations! You guessed the correct number! ")
+              */
+                const differece = Math.abs(targetNumber - userInput.userNumber);
                 if (differece === 0) {
-                    console.log(chalk.bgMagenta.bold(" Congratulations! You guessed the correct number! "));
+                    console.log(chalk.bgMagenta.bold(` Congratulations! You guessed the correct number! It was ${targetNumber} `));
                     break;
                 }
                 else if (differece < 2) {
-                    console.log(chalk.yellow.bold("Oof, so close! One number away from blowing my mind!"));
+                    console.log(chalk.blue.bold.italic("Oof, so close! One number away from blowing my mind!"));
                     userLife--;
                 }
                 else if (differece <= 2) {
-                    console.log(chalk.yellow("You're close! Keep going!"));
+                    console.log(chalk.blue.bold("You're close! Keep going!"));
                     userLife--;
                 }
                 else {
                     userLife--;
-                    console.log(chalk.yellow("You're far away. Try again!"));
+                    console.log(chalk.blue.bold("You're far away. Try again!"));
                 }
             }
             else {
-                console.log(chalk.bgRed(`Awww! Game Over`));
+                console.log(chalk.bgRed(` Awww! Game Over... The number was ${targetNumber} `));
                 break;
             }
         }
@@ -128,4 +132,5 @@ class NumberGuessingGame {
 }
 // Creating an instance of the Class
 const game = new NumberGuessingGame();
+// Calling the main method
 game.main();
