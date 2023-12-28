@@ -1,6 +1,6 @@
 # Number Guessing Game CLI
 
-Welcome to the Number Guessing Game CLI, a fun and interactive command-line game built with Node.js, Chalk, and Inquirer.
+Welcome to the Number Guessing Game CLI, a fun and interactive command-line game built with Node.js, Chalk, Inquirer, Boxen, and Clear.
 
 ## Features
 
@@ -10,6 +10,8 @@ Welcome to the Number Guessing Game CLI, a fun and interactive command-line game
 - 🎲 Randomly generated secret number.
 - 🎨 Animated ASCII art for an engaging start.
 - 💬 User-friendly prompts and messages.
+- 📦 Stylish information boxes using Boxen
+- 🧹 Clear terminal screen for improved visibility with Clear
 - 🔁 Option to restart the game after completion.
 
 ## Dependencies
@@ -17,12 +19,14 @@ Welcome to the Number Guessing Game CLI, a fun and interactive command-line game
 - [chalk](https://www.npmjs.com/package/chalk)
 - [chalk-animation](https://www.npmjs.com/package/chalk-animation)
 - [inquirer](https://www.npmjs.com/package/inquirer)
+- [boxen](https://www.npmjs.com/package/boxen)
+- [clear](https://www.npmjs.com/package/clear)
 
 ## Installation & Usage
 
 1. Install the calculator globally: `npm install -g mubeen-numguessing`
 2. Run the calculator: `npx mubeen-numguessing`
-3. Follow the prompts to play game with style!
+3. Follow the prompts to play the game with style!
 
 ## How to Play
 
@@ -33,4 +37,4 @@ Welcome to the Number Guessing Game CLI, a fun and interactive command-line game
 
 ## Issues
 
-If you encounter any issues or have suggestions, please message me on the [GitHub](https://github.com/mubeendev3).
+If you encounter any issues or have suggestions, please message me on [GitHub](https://github.com/mubeendev3).
