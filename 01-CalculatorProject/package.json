@@ -1,6 +1,6 @@
 {
   "name": "mubeen-calculator",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Welcome to My MathMagic CLI Calculator, your stylish and magical command-line calculator!",
   "main": "index.js",
   "type": "module",
@@ -19,7 +19,9 @@
     "Multiplication",
     "Division",
     "Arithmetic Operations",
-    "Power"
+    "Power",
+    "Boxen",
+    "Clear"
   ],
   "author": "Mubeen Mehmood",
   "license": "ISC",
