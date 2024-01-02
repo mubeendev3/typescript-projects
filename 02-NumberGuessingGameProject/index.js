@@ -90,7 +90,9 @@ class NumberGuessingGame {
                         message: chalk.green.underline.bold(`\nTime to guess! What's the number between 1-10?`),
                     },
                 ]);
-                if (!isNaN(userInput.userNumber)) {
+                if (!isNaN(userInput.userNumber) &&
+                    userInput.userNumber > 0 &&
+                    userInput.userNumber <= 10) {
                     /*
                   This variable is used to get the difference between the target value and the user guess
                   1. i.e differece = targetNumber - userNumber => 8 - 5 => 3 --> It means 3rd else it part will
