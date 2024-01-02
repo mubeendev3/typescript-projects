@@ -72,11 +72,12 @@ class ATMMachine {
     async depositMoney(currentBalance, userName) {
         const userInput = await inquirer.prompt([
             {
-                type: "number",
+                type: "input",
                 name: "amount",
-                message: chalk.hex(this.colorCode)(`${chalk.hex(this.colorCode)("Current Balance: ")} ${chalk.green(`$${currentBalance}`)}\n${chalk.green("Please Enter The Amount You Want To Withdraw: $")}`),
+                message: chalk.green("Please Enter The Amount You Want To Withdraw: $"),
                 validate: function (input) {
-                    if (input <= currentBalance) {
+                    const amount = Number.parseInt(input);
+                    if (amount !== 0 && amount <= currentBalance) {
                         return true;
                     }
                     else {
