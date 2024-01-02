@@ -28,7 +28,7 @@ class ATMMachine {
 `, {
             title: "ATM Machine Project",
             titleAlignment: "center",
-            borderStyle: "double",
+            borderStyle: "classic",
             padding: 1,
             borderColor: "magenta",
         }));
@@ -269,13 +269,14 @@ class ATMMachine {
                 name: "decision",
                 type: "input",
                 message: chalk.green("Do You Want To Start Again? Type Y or N:"),
-                // validate: function (input) {
-                //   if (input.toLowerCase() === "y" || input.toLowerCase() === "n") {
-                //     return true;
-                //   } else {
-                //     chalk.red.bold(`Please Enter A Valid Letter 'Y' or 'N'`);
-                //   }
-                // },
+                validate: function (input) {
+                    if (input.toLowerCase() === "y" || input.toLowerCase() === "n") {
+                        return true;
+                    }
+                    else {
+                        return chalk.red.bold(`Please Enter A Valid Letter 'Y' or 'N'`);
+                    }
+                },
             },
         ]);
         if (userDecision.decision.toLowerCase() === "y") {
@@ -289,7 +290,7 @@ class ATMMachine {
         const endingAnimation = chalkAnimation.neon(boxen(`Thank You For Using Our ATM MACHINE!`, {
             title: "Developed By Mubeen Mehmood",
             titleAlignment: "center",
-            borderStyle: "arrow",
+            borderStyle: "classic",
             padding: 0.5,
             borderColor: "magenta",
         }));
