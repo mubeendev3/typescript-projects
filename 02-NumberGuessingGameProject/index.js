@@ -5,20 +5,6 @@ import inquirer from "inquirer";
 import boxen from "boxen";
 import clear from "clear";
 class NumberGuessingGame {
-    // This method generated the random number every time the game starts
-    generateRandomNumber() {
-        const randomNumber = Math.floor(Math.random() * 10) + 1;
-        return randomNumber;
-    }
-    // This method is used to stop the animations
-    stopAnimation(animation, duration) {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                animation.stop();
-                resolve();
-            }, duration * 1000);
-        });
-    }
     // This method is used to display starting of our game
     async greeting() {
         const animation = chalkAnimation.rainbow(boxen(`
@@ -51,6 +37,76 @@ class NumberGuessingGame {
         await this.stopAnimation(animation, 3);
         this.gameLogic();
     }
+    // This method is used to stop the animations
+    stopAnimation(animation, duration) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                animation.stop();
+                resolve();
+            }, duration * 1000);
+        });
+    }
+    // We use this method to generate the random number every time the game starts
+    generateRandomNumber() {
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+        return randomNumber;
+    }
+    // This is the main game logic
+    async gameLogic() {
+        let userLife = 5;
+        const targetNumber = this.generateRandomNumber();
+        while (true) {
+            if (userLife !== 0) {
+                console.log(chalk.bgRed(` ${userLife} Lives Remaining! `));
+                // Getting input from the user
+                const userInput = await inquirer.prompt([
+                    {
+                        name: "userNumber",
+                        type: "number",
+                        message: chalk.green.underline.bold(`\nTime to guess! What's the number between 1-10?`),
+                    },
+                ]);
+                if (!isNaN(userInput.userNumber) &&
+                    userInput.userNumber > 0 &&
+                    userInput.userNumber <= 10) {
+                    /*
+                  This variable is used to get the difference between the target value and the user guess
+                  1. i.e differece = targetNumber - userNumber => 8 - 5 => 3 --> It means 3rd else if part will
+                  be executed (You're close! Keep going!)
+                  2. i.e differece = targetNumber - userNumber => 8 - 7 => 1 --> It means 2nd else if part will
+                  be executed (Oof, so close! One number away from blowing my mind!)
+                  3. i.e differece = targetNumber - userNumber => 8 - 8 => 0 --> It means 1st if part will be
+                  executed (" Congratulations! You guessed the correct number! ")
+                  */
+                    const differece = Math.abs(targetNumber - userInput.userNumber);
+                    if (differece === 0) {
+                        console.log(chalk.bgMagenta.bold(` Congratulations! You guessed the correct number! It was ${targetNumber} `));
+                        break;
+                    }
+                    else if (differece < 2) {
+                        console.log(chalk.blue.bold.italic("Oof, so close! One number away from blowing my mind!"));
+                        userLife--;
+                    }
+                    else if (differece <= 2) {
+                        console.log(chalk.blue.bold("You're close! Keep going!"));
+                        userLife--;
+                    }
+                    else {
+                        console.log(chalk.blue.bold("You're far away. Try again!"));
+                        userLife--;
+                    }
+                }
+                else {
+                    console.log(chalk.red.bold(`Please enter a valid number within the given range`));
+                }
+            }
+            else {
+                console.log(chalk.bgRed(` Awww! Game Over... The number was ${targetNumber} `));
+                break;
+            }
+        }
+        this.restartGame();
+    }
     // This method is used to restart the game
     async restartGame() {
         const endingChoices = [
@@ -74,62 +130,6 @@ class NumberGuessingGame {
             const endingAnimation = chalkAnimation.rainbow(`Good Bye! See you next time... :)`);
             await this.stopAnimation(endingAnimation, 3);
         }
-    }
-    // This is the main game logic
-    async gameLogic() {
-        let userLife = 5;
-        const targetNumber = this.generateRandomNumber();
-        while (true) {
-            if (userLife !== 0) {
-                console.log(chalk.bgRed(` ${userLife} Lives Remaining! `));
-                // Getting input from the user
-                const userInput = await inquirer.prompt([
-                    {
-                        name: "userNumber",
-                        type: "number",
-                        message: chalk.green.underline.bold(`\nTime to guess! What's the number between 1-10?`),
-                    },
-                ]);
-                if (!isNaN(userInput.userNumber) &&
-                    userInput.userNumber > 0 &&
-                    userInput.userNumber <= 10) {
-                    /*
-                  This variable is used to get the difference between the target value and the user guess
-                  1. i.e differece = targetNumber - userNumber => 8 - 5 => 3 --> It means 3rd else it part will
-                  be executed (You're close! Keep going!)
-                  2. i.e differece = targetNumber - userNumber => 8 - 7 => 1 --> It means 2nd else if part will
-                  be executed (Oof, so close! One number away from blowing my mind!)
-                  3. i.e differece = targetNumber - userNumber => 8 - 8 => 0 --> It means 1st if part will be
-                  executed (" Congratulations! You guessed the correct number! ")
-                  */
-                    const differece = Math.abs(targetNumber - userInput.userNumber);
-                    if (differece === 0) {
-                        console.log(chalk.bgMagenta.bold(` Congratulations! You guessed the correct number! It was ${targetNumber} `));
-                        break;
-                    }
-                    else if (differece < 2) {
-                        console.log(chalk.blue.bold.italic("Oof, so close! One number away from blowing my mind!"));
-                        userLife--;
-                    }
-                    else if (differece <= 2) {
-                        console.log(chalk.blue.bold("You're close! Keep going!"));
-                        userLife--;
-                    }
-                    else {
-                        userLife--;
-                        console.log(chalk.blue.bold("You're far away. Try again!"));
-                    }
-                }
-                else {
-                    console.log(chalk.red.bold(`Please Enter a Valid Number`));
-                }
-            }
-            else {
-                console.log(chalk.bgRed(` Awww! Game Over... The number was ${targetNumber} `));
-                break;
-            }
-        }
-        this.restartGame();
     }
     async main() {
         // This method is used to clear the terminal before starting the main execution

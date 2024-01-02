@@ -7,6 +7,7 @@ import clear from "clear";
 
 class NumberGuessingGame {
   // This method is used to display starting of our game
+  // Display colorful ASCII art greeting and initialize the game
   async greeting() {
     const animation = chalkAnimation.rainbow(
       boxen(
@@ -41,12 +42,13 @@ class NumberGuessingGame {
         }
       )
     );
-
+    // Stop the animation after a specified duration
     await this.stopAnimation(animation, 3);
+    // Start the main game logic
     this.gameLogic();
   }
 
-  // This method is used to stop the animations
+  // Stop animations after a specified duration
   stopAnimation(animation: any, duration: number): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -56,7 +58,7 @@ class NumberGuessingGame {
     });
   }
 
-  // We use this method to generate the random number every time the game starts
+  // Generate a random number between 1 and 10 for the game
   generateRandomNumber(): number {
     const randomNumber = Math.floor(Math.random() * 10) + 1;
     return randomNumber;
@@ -65,12 +67,16 @@ class NumberGuessingGame {
   // This is the main game logic
   async gameLogic() {
     let userLife: number = 5;
+    // Generate the target number to be guessed
     const targetNumber = this.generateRandomNumber();
+
+    // Infinite loop for the game until the user decides to exit
     while (true) {
       if (userLife !== 0) {
+        // Display the remaining lives to the user
         console.log(chalk.bgRed(` ${userLife} Lives Remaining! `));
 
-        // Getting input from the user
+        // Get user input for the guessed number
         const userInput = await inquirer.prompt([
           {
             name: "userNumber",
@@ -95,10 +101,12 @@ class NumberGuessingGame {
         3. i.e differece = targetNumber - userNumber => 8 - 8 => 0 --> It means 1st if part will be
         executed (" Congratulations! You guessed the correct number! ")
         */
+          // Calculate the difference between the target value and the user guess
           const differece: number = Math.abs(
             targetNumber - userInput.userNumber
           );
 
+          // Correct guess: End the game and display the success message
           if (differece === 0) {
             console.log(
               chalk.bgMagenta.bold(
@@ -121,17 +129,20 @@ class NumberGuessingGame {
             userLife--;
           }
         } else {
+          // Invalid input: Display an error message to the user
           console.log(
             chalk.red.bold(`Please enter a valid number within the given range`)
           );
         }
       } else {
+        // Game over: Display the game over message and end the game
         console.log(
           chalk.bgRed(` Awww! Game Over... The number was ${targetNumber} `)
         );
         break;
       }
     }
+    // Allow the user to restart the game or exit
     this.restartGame();
   }
 
