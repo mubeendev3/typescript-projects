@@ -10,6 +10,7 @@ class ATMMachine {
   private colorCode: string = "#FF00FF";
 
   // Method to stop animations after a specified duration
+
   stopAnimations(animation: any, duration: number): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -88,23 +89,35 @@ class ATMMachine {
           }
         },
       },
+    ]);
+    const userPin: number = await this.askUserPin();
+
+    await this.afterUserLoggedIn(userDetails.userName, userPin);
+    this.restartProcess();
+  }
+
+  async askUserPin(previousPin?: number): Promise<number> {
+    const userInput = await inquirer.prompt([
       {
         type: "password",
         name: "userPin",
         message: "Enter Your 4-Digits Pin Code:",
         mask: "*",
         validate: function (input) {
+          const errorMessage: string = `Your PIN must be 4 digits long & Can Only Contain Numbers!`;
           // Validate that the PIN is a 4-digit number
           if (!isNaN(input) && input.length === 4) {
+            if (previousPin) {
+              return input === previousPin ? true : errorMessage;
+            }
             return true;
           } else {
-            return `Your PIN must be 4 digits long & Can Only Contain Numbers!`;
+            return errorMessage;
           }
         },
       },
     ]);
-    await this.afterUserLoggedIn(userDetails.userName, userDetails.userPin);
-    this.restartProcess();
+    return userInput.userPin;
   }
 
   async handleTransaction(
@@ -225,20 +238,6 @@ class ATMMachine {
         message: chalk.green("Enter Recipient's Account Number: 0x2345... :"),
       },
       {
-        type: "password",
-        name: "userPin",
-        message: "Enter Your 4-Digits Pin Code:",
-        mask: "*",
-        validate: function (input) {
-          // Validate that the PIN is a 4-digit number
-          if (input === currentUserPin) {
-            return true;
-          } else {
-            return `The PIN you provided doesn't match your previous PIN.`;
-          }
-        },
-      },
-      {
         type: "input",
         name: "amount",
         message: chalk.green("Please Enter amount you want to transfer: $"),
@@ -254,6 +253,7 @@ class ATMMachine {
         },
       },
     ]);
+    await this.askUserPin(currentUserPin);
     const receipt: string = await this.getUserDecision();
     if (receipt.toLowerCase() === "y") {
       const transferAmount: number = userInput.amount;

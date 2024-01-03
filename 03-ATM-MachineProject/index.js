@@ -78,6 +78,13 @@ class ATMMachine {
                     }
                 },
             },
+        ]);
+        const userPin = await this.askUserPin();
+        await this.afterUserLoggedIn(userDetails.userName, userPin);
+        this.restartProcess();
+    }
+    async askUserPin(previousPin) {
+        const userInput = await inquirer.prompt([
             {
                 type: "password",
                 name: "userPin",
@@ -86,6 +93,12 @@ class ATMMachine {
                 validate: function (input) {
                     // Validate that the PIN is a 4-digit number
                     if (!isNaN(input) && input.length === 4) {
+                        if (previousPin) {
+                            // console.log(previousPin);
+                            return input === previousPin
+                                ? true
+                                : `Your PIN must be 4 digits long & Can Only Contain Numbers!`;
+                        }
                         return true;
                     }
                     else {
@@ -94,8 +107,7 @@ class ATMMachine {
                 },
             },
         ]);
-        await this.afterUserLoggedIn(userDetails.userName, userDetails.userPin);
-        this.restartProcess();
+        return userInput.userPin;
     }
     async handleTransaction(currentBalance, userName, transactionType) {
         const transactionMessage = transactionType === "withdraw"
@@ -186,21 +198,6 @@ class ATMMachine {
                 message: chalk.green("Enter Recipient's Account Number: 0x2345... :"),
             },
             {
-                type: "password",
-                name: "userPin",
-                message: "Enter Your 4-Digits Pin Code:",
-                mask: "*",
-                validate: function (input) {
-                    // Validate that the PIN is a 4-digit number
-                    if (input === currentUserPin) {
-                        return true;
-                    }
-                    else {
-                        return `The PIN you provided doesn't match your previous PIN.`;
-                    }
-                },
-            },
-            {
                 type: "input",
                 name: "amount",
                 message: chalk.green("Please Enter amount you want to transfer: $"),
@@ -215,6 +212,7 @@ class ATMMachine {
                 },
             },
         ]);
+        await this.askUserPin(currentUserPin);
         const receipt = await this.getUserDecision();
         if (receipt.toLowerCase() === "y") {
             const transferAmount = userInput.amount;
