@@ -5,6 +5,7 @@ import inquirer from "inquirer";
 import boxen from "boxen";
 import { clear } from "console";
 
+// Creating class for our Calculator
 class Calculator {
   async welcomeMessage() {
     let glitchAnimation = chalkAnimation.karaoke(
