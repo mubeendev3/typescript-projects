@@ -1,8 +1,10 @@
+// Importing necessary modules
 import boxen from "boxen";
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
 import clear from "clear";
+// Class representing an ATM Machine
 class ATMMachine {
     colorCode = "#FF00FF";
     // Method to stop animations after a specified duration
@@ -71,19 +73,26 @@ class ATMMachine {
         await this.afterUserLoggedIn(userDetails.userName, userDetails.userPin);
         this.restartProcess();
     }
-    async withdrawMoney(currentBalance, userName) {
+    async handleTransaction(currentBalance, userName, transactionType) {
+        const transactionMessage = transactionType === "withdraw"
+            ? "Please Enter The Amount You Want To Withdraw: $"
+            : "Please Enter The Amount You Want To Deposit: $";
         const userInput = await inquirer.prompt([
             {
                 type: "input",
                 name: "amount",
-                message: chalk.green("Please Enter The Amount You Want To Withdraw: $"),
+                message: chalk.green(transactionMessage),
                 validate: function (input) {
-                    const amount = Number.parseInt(input);
-                    if (amount !== 0 && amount <= currentBalance) {
+                    if ((transactionType === "withdraw" &&
+                        input > 0 &&
+                        input <= currentBalance) ||
+                        (transactionType === "deposit" && input > 0)) {
                         return true;
                     }
                     else {
-                        return chalk.red.bold("Insufficient funds. Please enter a valid withdrawal amount.");
+                        return chalk.red.bold(transactionType === "withdraw"
+                            ? "Insufficient funds. Please enter a valid withdrawal amount."
+                            : "Please enter a valid deposit amount.");
                     }
                 },
             },
@@ -104,16 +113,21 @@ class ATMMachine {
             },
         ]);
         if (userInput.receipt.toLowerCase() === "y") {
-            const remainingBalance = currentBalance - userInput.amount;
-            const withdrawalAmout = userInput.amount;
+            const transactionAmount = Number.parseInt(userInput.amount);
+            const newBalance = transactionType === "withdraw"
+                ? currentBalance - transactionAmount
+                : currentBalance + transactionAmount;
+            const transactionTitle = transactionType === "withdraw"
+                ? "Amount Withdrawn: "
+                : "Deposit Amount: ";
             console.log(boxen(chalk.hex("#FF00FF")("Name: ") +
                 chalk.green.bold(userName) +
                 "\n" +
-                chalk.hex("#FF00FF")("Amount Withdrawn: ") +
-                chalk.green.bold(`$${withdrawalAmout}`) +
+                chalk.hex("#FF00FF")(transactionTitle) +
+                chalk.green.bold(`$${transactionAmount}`) +
                 "\n" +
                 chalk.hex("#FF00FF")("Remaining Balance: ") +
-                chalk.green.bold(`$${remainingBalance}`), {
+                chalk.green.bold(`$${newBalance}`), {
                 title: "Receipt",
                 borderColor: "magenta",
                 borderStyle: "double",
@@ -122,48 +136,15 @@ class ATMMachine {
             }));
         }
     }
+    // Method to withdraw money from the account
+    async withdrawMoney(currentBalance, userName) {
+        await this.handleTransaction(currentBalance, userName, "withdraw");
+    }
+    // Method to deposit money into the account
     async depositMoney(currentBalance, userName) {
-        const userInput = await inquirer.prompt([
-            {
-                type: "input",
-                name: "amount",
-                message: chalk.green("Please Enter The Amount You Want To Deposit: $"),
-            },
-            {
-                name: "receipt",
-                type: "input",
-                message: chalk.green("Do You Want To Generate Receipt? Type Y or N:"),
-                validate: function (input) {
-                    const userInput = input;
-                    if (userInput.toLowerCase() === "y" ||
-                        userInput.toLowerCase() === "n") {
-                        return true;
-                    }
-                    else {
-                        chalk.red.bold(`Please Enter A Valid Letter 'Y' or 'N'`);
-                    }
-                },
-            },
-        ]);
-        if (userInput.receipt.toLowerCase() === "y") {
-            const depositAmount = Number.parseInt(userInput.amount);
-            const totalBalance = currentBalance + depositAmount;
-            console.log(boxen(chalk.hex("#FF00FF")("Name: ") +
-                chalk.green.bold(userName) +
-                "\n" +
-                chalk.hex("#FF00FF")("Deposit Amount: ") +
-                chalk.green.bold(`$${depositAmount}`) +
-                "\n" +
-                chalk.hex("#FF00FF")("Total Balance: ") +
-                chalk.green.bold(`$${totalBalance}`), {
-                title: "Receipt",
-                borderColor: "magenta",
-                borderStyle: "double",
-                padding: 1,
-                margin: 1,
-            }));
-        }
+        await this.handleTransaction(currentBalance, userName, "deposit");
     }
+    // Method to check account information
     checkAccountInformation(currentBalance, userName) {
         console.log(boxen(chalk.hex("#FF00FF")("Name: ") +
             chalk.green.bold(userName) +
@@ -186,6 +167,7 @@ class ATMMachine {
             margin: 1,
         }));
     }
+    // Method to transfer balance to another account
     async transferBalance(currentUserPin, currentBalance, userName) {
         const userInput = await inquirer.prompt([
             {
@@ -263,6 +245,7 @@ class ATMMachine {
             }));
         }
     }
+    // Method to restart the ATM process
     async restartProcess() {
         const userDecision = await inquirer.prompt([
             {
@@ -286,6 +269,7 @@ class ATMMachine {
             this.endingAnimation();
         }
     }
+    // Method for ending animation and thanking the user
     async endingAnimation() {
         const endingAnimation = chalkAnimation.neon(boxen(`Thank You For Using Our ATM MACHINE!`, {
             title: "Developed By Mubeen Mehmood",
@@ -296,6 +280,7 @@ class ATMMachine {
         }));
         await this.stopAnimations(endingAnimation, 3);
     }
+    // Method to prompt user for ATM operations
     async askUserOperations(userBalance, userName, currentUserPin) {
         const atmOperations = [
             "Withdraw Money",
@@ -331,6 +316,7 @@ class ATMMachine {
                 break;
         }
     }
+    // Method called after user logs in, displaying welcome message and prompting for operations
     async afterUserLoggedIn(userName, userPin) {
         const userBalance = this.randomBalanceGenerator();
         clear();
@@ -348,10 +334,12 @@ class ATMMachine {
         }));
         await this.askUserOperations(userBalance, userName, userPin);
     }
+    // Method to generate a random account balance
     randomBalanceGenerator() {
         const randomBalance = Math.floor(Math.random() * 100000);
         return randomBalance;
     }
+    // Main method to start the ATM application
     main() {
         clear();
         this.welcomeScreen();
