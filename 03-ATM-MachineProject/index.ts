@@ -10,7 +10,6 @@ class ATMMachine {
   private colorCode: string = "#FF00FF";
 
   // Method to stop animations after a specified duration
-
   stopAnimations(animation: any, duration: number): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {

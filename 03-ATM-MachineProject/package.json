@@ -1,14 +1,38 @@
 {
-  "name": "03-atm-machineproject",
+  "name": "mubeen-atmmachine",
   "version": "1.0.0",
-  "description": "",
+  "description": "Welcome to the ATM Machine CLI, a command-line interface for simulating ATM transactions. This project is built with Node.js, Chalk, Inquirer, Boxen, and Clear, providing a user-friendly experience for managing ATM operations.",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "ATM",
+    "CLI",
+    "Node.js",
+    "Chalk",
+    "Inquirer",
+    "Boxen",
+    "Clear",
+    "Transaction",
+    "Withdraw",
+    "Deposit",
+    "Balance Check",
+    "Transfer",
+    "Receipt",
+    "Animation",
+    "Command Line",
+    "Interactive",
+    "User-friendly",
+    "Simulator",
+    "Financial",
+    "Banking",
+    "Prompt",
+    "GitHub",
+    "Documentation"
+  ],  
+  "author": "Mubeen Mehmood",
   "license": "ISC",
   "devDependencies": {
     "@types/boxen": "^3.0.1",
@@ -26,5 +50,19 @@
     "clear": "^0.1.0",
     "figlet": "^1.7.0",
     "inquirer": "^9.2.12"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/03-ATM-MachineProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
+
+
+  
+  
 }
+

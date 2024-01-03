@@ -91,18 +91,16 @@ class ATMMachine {
                 message: "Enter Your 4-Digits Pin Code:",
                 mask: "*",
                 validate: function (input) {
+                    const errorMessage = `Your PIN must be 4 digits long & Can Only Contain Numbers!`;
                     // Validate that the PIN is a 4-digit number
                     if (!isNaN(input) && input.length === 4) {
                         if (previousPin) {
-                            // console.log(previousPin);
-                            return input === previousPin
-                                ? true
-                                : `Your PIN must be 4 digits long & Can Only Contain Numbers!`;
+                            return input === previousPin ? true : errorMessage;
                         }
                         return true;
                     }
                     else {
-                        return `Your PIN must be 4 digits long & Can Only Contain Numbers!`;
+                        return errorMessage;
                     }
                 },
             },
