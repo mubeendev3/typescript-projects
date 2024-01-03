@@ -16,6 +16,30 @@ class ATMMachine {
             }, duration * 1000);
         });
     }
+    // Method used to generate receipt
+    async getUserDecision(message) {
+        const messageTitle = message === "restart"
+            ? "Do You Want To Start Again? Type Y or N:"
+            : "Do You Want To Generate Receipt? Type Y or N:";
+        const userInput = await inquirer.prompt([
+            {
+                name: "userDecision",
+                type: "input",
+                message: chalk.green(messageTitle),
+                validate: function (input) {
+                    const userInput = input;
+                    if (userInput.toLowerCase() === "y" ||
+                        userInput.toLowerCase() === "n") {
+                        return true;
+                    }
+                    else {
+                        chalk.red.bold(`Please Enter A Valid Letter 'Y' or 'N'`);
+                    }
+                },
+            },
+        ]);
+        return userInput.userDecision;
+    }
     // Method to display the welcome screen with an animated box
     async welcomeScreen() {
         const startingAnimation = chalkAnimation.neon(boxen(`
@@ -96,23 +120,9 @@ class ATMMachine {
                     }
                 },
             },
-            {
-                name: "receipt",
-                type: "input",
-                message: chalk.green("Do You Want To Generate Receipt? Type Y or N:"),
-                validate: function (input) {
-                    const userInput = input;
-                    if (userInput.toLowerCase() === "y" ||
-                        userInput.toLowerCase() === "n") {
-                        return true;
-                    }
-                    else {
-                        chalk.red.bold(`Please Enter A Valid Letter 'Y' or 'N'`);
-                    }
-                },
-            },
         ]);
-        if (userInput.receipt.toLowerCase() === "y") {
+        const receipt = await this.getUserDecision();
+        if (receipt.toLowerCase() === "y") {
             const transactionAmount = Number.parseInt(userInput.amount);
             const newBalance = transactionType === "withdraw"
                 ? currentBalance - transactionAmount
@@ -173,7 +183,7 @@ class ATMMachine {
             {
                 type: "input",
                 name: "recipientAccount",
-                message: chalk.green("Enter Recipient's Account Number: (e.g., 0x2345...)"),
+                message: chalk.green("Enter Recipient's Account Number: 0x2345... :"),
             },
             {
                 type: "password",
@@ -204,23 +214,9 @@ class ATMMachine {
                     }
                 },
             },
-            {
-                name: "receipt",
-                type: "input",
-                message: chalk.green("Do You Want To Generate Receipt? Type Y or N:"),
-                validate: function (input) {
-                    const userInput = input;
-                    if (userInput.toLowerCase() === "y" ||
-                        userInput.toLowerCase() === "n") {
-                        return true;
-                    }
-                    else {
-                        chalk.red.bold(`Please Enter A Valid Letter 'Y' or 'N'`);
-                    }
-                },
-            },
         ]);
-        if (userInput.receipt.toLowerCase() === "y") {
+        const receipt = await this.getUserDecision();
+        if (receipt.toLowerCase() === "y") {
             const transferAmount = userInput.amount;
             const remainingBalance = currentBalance - userInput.amount;
             console.log(boxen(chalk.hex("#FF00FF")("Name: ") +
@@ -247,22 +243,8 @@ class ATMMachine {
     }
     // Method to restart the ATM process
     async restartProcess() {
-        const userDecision = await inquirer.prompt([
-            {
-                name: "decision",
-                type: "input",
-                message: chalk.green("Do You Want To Start Again? Type Y or N:"),
-                validate: function (input) {
-                    if (input.toLowerCase() === "y" || input.toLowerCase() === "n") {
-                        return true;
-                    }
-                    else {
-                        return chalk.red.bold(`Please Enter A Valid Letter 'Y' or 'N'`);
-                    }
-                },
-            },
-        ]);
-        if (userDecision.decision.toLowerCase() === "y") {
+        const userDecision = await this.getUserDecision("restart");
+        if (userDecision.toLowerCase() === "y") {
             this.main();
         }
         else {
