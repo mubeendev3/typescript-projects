@@ -22,8 +22,8 @@ Welcome to the ATM Machine CLI, a command-line interface for simulating ATM tran
 
 ## Installation & Usage
 
-1. Install the ATM CLI globally: `npm install -g your-atm-package-name`
-2. Run the ATM CLI: `npx your-atm-package-name`
+1. Install the ATM CLI globally: `npm install -g mubeen-atmmachine`
+2. Run the ATM CLI: `npx mubeen-atmmachine`
 3. Follow the prompts to perform various ATM operations.
 
 ## How to Use
@@ -35,7 +35,7 @@ Welcome to the ATM Machine CLI, a command-line interface for simulating ATM tran
 
 ## Issues
 
-If you encounter any issues or have suggestions, please report them on the [GitHub repository](https://github.com/your-username/your-atm-repo).
+If you encounter any issues or have suggestions, please report them on the [GitHub repository](https://github.com/mubeendev3/typescript-projects/issues).
 
 ## Acknowledgments
 
