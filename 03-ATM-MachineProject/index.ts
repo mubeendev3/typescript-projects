@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // Importing necessary modules
 import boxen from "boxen";
 import chalk from "chalk";

@@ -4,6 +4,7 @@
   "description": "Welcome to the ATM Machine CLI, a command-line interface for simulating ATM transactions. This project is built with Node.js, Chalk, Inquirer, Boxen, and Clear, providing a user-friendly experience for managing ATM operations.",
   "main": "index.js",
   "type": "module",
+  "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
