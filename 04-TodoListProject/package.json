@@ -1,0 +1,49 @@
+{
+  "name": "mubeen-todoproject",
+  "version": "1.0.0",
+  "description": "Welcome to the TODO App CLI, a command-line interface for managing your tasks. This project is built with TypeScript, Inquirer, Boxen, and Chalk Animation, providing a user-friendly experience for handling TODO operations.",
+  "main": "index.js",
+  "type": "module",
+  "bin": "todo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "TODO",
+    "CLI",
+    "TypeScript",
+    "Inquirer",
+    "Boxen",
+    "Chalk Animation",
+    "Interactive",
+    "User-friendly",
+    "Command Line",
+    "Tasks",
+    "Management"
+  ],
+  "author": "Mubeen Mehmood",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/boxen": "^3.0.1",
+    "@types/chalk-animation": "^1.6.3",
+    "@types/clear": "^0.1.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/log-update": "^3.1.0",
+    "@types/node": "^20.10.7"
+  },
+  "dependencies": {
+    "chalk-animation": "^2.0.3",
+    "inquirer": "^9.2.12"
+  },  
+  
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/03-ATM-MachineProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
+}
