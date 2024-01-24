@@ -56,7 +56,7 @@ class ATMMachine {
     .------------------.
     |  [ 1 ] Withdraw  |
     |  [ 2 ] Deposit   |
-    |  [ 3 ] Balance   |
+    |  [ 3 ] Acc Info  |
     |  [ 4 ] Transfer  |
     |  [ 5 ] Exit      |
     '------------------'
@@ -172,7 +172,7 @@ class ATMMachine {
             chalk.hex("#FF00FF")(transactionTitle) +
             chalk.green.bold(`$${transactionAmount}`) +
             "\n" +
-            chalk.hex("#FF00FF")("Remaining Balance: ") +
+            chalk.hex("#FF00FF")("New Balance: ") +
             chalk.green.bold(`$${newBalance}`),
           {
             title: "Receipt",
