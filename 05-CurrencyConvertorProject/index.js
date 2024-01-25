@@ -1,10 +1,8 @@
 #!/usr/bin/env node
-import axios from "axios";
+import fetch from "node-fetch";
 import inquirer from "inquirer";
 import chalkAnimation from "chalk-animation";
 import boxen from "boxen";
-import dotenv from "dotenv";
-dotenv.config(); // Load environment variables
 class CurrencyConvertor {
     availableCurrencies = [
         "AED",
@@ -170,8 +168,7 @@ class CurrencyConvertor {
         "ZMW",
         "ZWL",
     ];
-    apiKey = process.env.API_KEY || "";
-    // Method to stop animations after a specified duration
+    apiKey = "fc99e326b5de7c94f177da5f";
     stopAnimations(animation, duration) {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -191,7 +188,6 @@ class CurrencyConvertor {
         await this.stopAnimations(startingAnimation, 3);
         await this.getUserInput();
     }
-    // Method for ending animation and thanking the user
     async endingAnimation() {
         const endingAnimation = chalkAnimation.neon(boxen(`Thank You For Using Our Currency Convertor!`, {
             title: "Developed By Mubeen Mehmood",
@@ -204,16 +200,18 @@ class CurrencyConvertor {
     }
     async getApiData(apiLink, baseCurrency, conversionCurrency, currencyAmount) {
         try {
-            const apiData = axios.get(apiLink);
-            apiData.then((response) => {
-                let currencyRate = response.data["conversion_rates"][conversionCurrency];
-                let convertedAmount = currencyAmount * currencyRate;
-                console.log(`${currencyAmount} ${baseCurrency} = ${convertedAmount.toFixed(2)} ${conversionCurrency}`);
-                this.endingAnimation();
-            });
+            const response = await fetch(apiLink);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}, INVALID API KEY ... :()`);
+            }
+            const data = await response.json();
+            let currencyRate = data["conversion_rates"][conversionCurrency];
+            let convertedAmount = currencyAmount * currencyRate;
+            console.log(`${currencyAmount} ${baseCurrency} = ${convertedAmount.toFixed(2)} ${conversionCurrency}`);
+            this.endingAnimation();
         }
         catch (error) {
-            console.error("Error fetching conversion rates:");
+            console.error("Error fetching conversion rates:", error);
         }
     }
     async getUserInput() {

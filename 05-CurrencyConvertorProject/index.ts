@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-import axios from "axios";
+
+import fetch from "node-fetch";
+import * as dotenv from "dotenv";
 import inquirer from "inquirer";
 import chalkAnimation from "chalk-animation";
 import boxen from "boxen";
-import dotenv from "dotenv";
 
-dotenv.config(); // Load environment variables
-
+dotenv.config();
 class CurrencyConvertor {
   private availableCurrencies: string[] = [
     "AED",
@@ -172,9 +172,9 @@ class CurrencyConvertor {
     "ZMW",
     "ZWL",
   ];
+
   private apiKey: string = process.env.API_KEY || "";
 
-  // Method to stop animations after a specified duration
   stopAnimations(animation: any, duration: number): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -198,7 +198,6 @@ class CurrencyConvertor {
     await this.getUserInput();
   }
 
-  // Method for ending animation and thanking the user
   async endingAnimation(): Promise<void> {
     const endingAnimation = chalkAnimation.neon(
       boxen(`Thank You For Using Our Currency Convertor!`, {
@@ -219,21 +218,28 @@ class CurrencyConvertor {
     currencyAmount: number
   ) {
     try {
-      const apiData = axios.get(apiLink);
-      apiData.then((response) => {
-        let currencyRate =
-          response.data["conversion_rates"][conversionCurrency];
-        let convertedAmount: number = currencyAmount * currencyRate;
+      const response = await fetch(apiLink);
 
-        console.log(
-          `${currencyAmount} ${baseCurrency} = ${convertedAmount.toFixed(
-            2
-          )} ${conversionCurrency}`
+      if (!response.ok) {
+        throw new Error(
+          `HTTP error! Status: ${response.status}, INVALID API KEY ... :()`
         );
-        this.endingAnimation();
-      });
+      }
+
+      const data: any = await response.json();
+
+      let currencyRate = data["conversion_rates"][conversionCurrency];
+      let convertedAmount: number = currencyAmount * currencyRate;
+
+      console.log(
+        `${currencyAmount} ${baseCurrency} = ${convertedAmount.toFixed(
+          2
+        )} ${conversionCurrency}`
+      );
+
+      this.endingAnimation();
     } catch (error) {
-      console.error("Error fetching conversion rates:");
+      console.error("Error fetching conversion rates:", error);
     }
   }
 
@@ -269,5 +275,4 @@ class CurrencyConvertor {
 }
 
 const currency = new CurrencyConvertor();
-
 currency.welcomeAnimation();
