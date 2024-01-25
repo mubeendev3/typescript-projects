@@ -2,25 +2,56 @@
   "name": "mubeen-currencyconvertor",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
+  "description": "Welcome to the Currency Converter CLI, a command-line interface for converting currencies. This project is built with TypeScript, Axios, Inquirer, Chalk Animation, and Boxen, providing a seamless experience for currency conversion.",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "currency converter",
+    "CLI",
+    "command-line",
+    "typescript",
+    "axios",
+    "inquirer",
+    "chalk animation",
+    "boxen",
+    "exchange rates",
+    "real-time conversion",
+    "financial tools",
+    "npm",
+    "typescript project",
+    "developer portfolio",
+    "node.js",
+    "interactive CLI",
+    "user-friendly",
+    "npm package",
+    "typescript application"
+  ],
+  "author": "Mubeen Mehmood",
   "license": "ISC",
   "devDependencies": {
     "@types/axios": "^0.14.0",
-    "@types/chalk": "^2.2.0",
+    "@types/boxen": "^3.0.1",
     "@types/chalk-animation": "^1.6.3",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.6"
   },
   "dependencies": {
     "axios": "^1.6.6",
-    "chalk": "^5.3.0",
+    "boxen": "^7.1.1",
     "chalk-animation": "^2.0.3",
+    "dotenv": "^16.4.1",
     "inquirer": "^9.2.12"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/05-CurrencyConvertorProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
 }

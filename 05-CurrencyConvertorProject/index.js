@@ -1,5 +1,10 @@
+#!/usr/bin/env node
 import axios from "axios";
 import inquirer from "inquirer";
+import chalkAnimation from "chalk-animation";
+import boxen from "boxen";
+import dotenv from "dotenv";
+dotenv.config(); // Load environment variables
 class CurrencyConvertor {
     availableCurrencies = [
         "AED",
@@ -165,20 +170,46 @@ class CurrencyConvertor {
         "ZMW",
         "ZWL",
     ];
-    baseCurrency = "pkr";
-    currencyAmount = 0;
-    conversionCurrency = "usd";
-    apiKey = "fc99e326b5de7c94f177da5f";
-    getApiData(apiKey, apiLink, currencyAmount) {
+    apiKey = process.env.API_KEY || "";
+    // Method to stop animations after a specified duration
+    stopAnimations(animation, duration) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                animation.stop();
+                resolve();
+            }, duration * 1000);
+        });
+    }
+    async welcomeAnimation() {
+        const startingAnimation = chalkAnimation.neon(boxen(`Currency\nConvertor\nProject\nBy\nMubeen`, {
+            title: "Currency Convertor",
+            titleAlignment: "center",
+            textAlignment: "center",
+            borderStyle: "double",
+            borderColor: "magenta",
+        }));
+        await this.stopAnimations(startingAnimation, 3);
+        await this.getUserInput();
+    }
+    // Method for ending animation and thanking the user
+    async endingAnimation() {
+        const endingAnimation = chalkAnimation.neon(boxen(`Thank You For Using Our Currency Convertor!`, {
+            title: "Developed By Mubeen Mehmood",
+            titleAlignment: "center",
+            borderStyle: "classic",
+            padding: 0.5,
+            borderColor: "magenta",
+        }));
+        await this.stopAnimations(endingAnimation, 3);
+    }
+    async getApiData(apiLink, baseCurrency, conversionCurrency, currencyAmount) {
         try {
             const apiData = axios.get(apiLink);
             apiData.then((response) => {
-                console.log(this.conversionCurrency);
-                // let currency =
-                //   response.data["conversion_rates"][this.conversionCurrency];
-                let currencyRate = response.data["conversion_rates"][this.conversionCurrency];
-                let convertedAmount = parseFloat(currencyAmount) * currencyRate;
-                console.log(`${currencyAmount} ${this.baseCurrency} = ${convertedAmount} ${this.conversionCurrency}`);
+                let currencyRate = response.data["conversion_rates"][conversionCurrency];
+                let convertedAmount = currencyAmount * currencyRate;
+                console.log(`${currencyAmount} ${baseCurrency} = ${convertedAmount.toFixed(2)} ${conversionCurrency}`);
+                this.endingAnimation();
             });
         }
         catch (error) {
@@ -205,12 +236,9 @@ class CurrencyConvertor {
                 message: "Enter Amount You Want To Convert: ",
             },
         ]);
-        this.baseCurrency = userInput.baseCurrency;
-        this.conversionCurrency = userInput.conversionCurrency;
-        let apiLink = `https://v6.exchangerate-api.com/v6/${this.apiKey}/latest/${this.baseCurrency}`;
-        // this.currencyAmount = userInput.currencyAmount;
-        this.getApiData(this.apiKey, apiLink, userInput.currencyAmount);
+        let apiLink = `https://v6.exchangerate-api.com/v6/${this.apiKey}/latest/${userInput.baseCurrency}`;
+        await this.getApiData(apiLink, userInput.baseCurrency, userInput.conversionCurrency, userInput.currencyAmount);
     }
 }
 const currency = new CurrencyConvertor();
-currency.getUserInput();
+currency.welcomeAnimation();
