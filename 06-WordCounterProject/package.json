@@ -1,6 +1,6 @@
 {
   "name": "mubeen-wordcounter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Welcome to the Word Counter CLI, a command-line interface for counting words in a given paragraph. This project is built with TypeScript, Inquirer, Chalk Animation, and Boxen, providing an engaging experience for users to count words interactively.",
   "main": "index.js",
   "type": "module",

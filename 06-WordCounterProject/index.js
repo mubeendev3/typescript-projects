@@ -52,7 +52,7 @@ class WordCounter {
                 type: "input",
                 message: "Enter your paragraph: ",
                 validate: (input) => {
-                    if (input.length === 0) {
+                    if (input.trim() === "") {
                         return "Please enter a non-empty paragraph.";
                     }
                     return true;
