@@ -1,6 +1,6 @@
 {
   "name": "mubeen-todoproject",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Welcome to the TODO App CLI, a command-line interface for managing your tasks. This project is built with TypeScript, Inquirer, Boxen, and Chalk Animation, providing a user-friendly experience for handling TODO operations.",
   "main": "index.js",
   "type": "module",
@@ -32,14 +32,13 @@
     "@types/node": "^20.10.7"
   },
   "dependencies": {
+    "boxen": "^7.1.1",
     "chalk-animation": "^2.0.3",
     "inquirer": "^9.2.12"
-  },  
-  
+  },
   "bugs": {
     "url": "https://github.com//mubeendev3/typescript-projects/issues"
   },
-
   "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/04-TodoListProject#readme",
   "repository": {
     "type": "git",
