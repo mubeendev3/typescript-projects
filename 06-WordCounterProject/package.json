@@ -1,0 +1,59 @@
+{
+  "name": "mubeen-wordcounter",
+  "version": "1.0.0",
+  "description": "Welcome to the Word Counter CLI, a command-line interface for counting words in a given paragraph. This project is built with TypeScript, Inquirer, Chalk Animation, and Boxen, providing an engaging experience for users to count words interactively.",
+  "main": "index.js",
+  "type": "module",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Word Counter",
+    "CLI",
+    "Command-line Interface",
+    "TypeScript",
+    "Inquirer",
+    "Chalk Animation",
+    "Boxen",
+    "Text Analysis",
+    "Interactive",
+    "User Input",
+    "Typography",
+    "Text Processing",
+    "Development",
+    "Software",
+    "Programming",
+    "NPM",
+    "Open Source",
+    "Word Count",
+    "Text Utility",
+    "Developer Tools",
+    "Interactive CLI",
+    "Animated CLI",
+    "Programming Project",
+    "Text Manipulation"
+  ],  
+  "author": "Mubeen Mehmood",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/boxen": "^3.0.1",
+    "@types/chalk-animation": "^1.6.3",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.7"
+  },
+  "dependencies": {
+    "boxen": "^7.1.1",
+    "chalk-animation": "^2.0.3",
+    "inquirer": "^9.2.12"
+  },
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/06-WordCounterProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
+}
