@@ -51,6 +51,12 @@ class WordCounter {
                 name: "userParagraph",
                 type: "input",
                 message: "Enter your paragraph: ",
+                validate: (input) => {
+                    if (input.length === 0) {
+                        return "Please enter a non-empty paragraph.";
+                    }
+                    return true;
+                },
             },
         ]);
         // Counting words based on user input
@@ -60,7 +66,7 @@ class WordCounter {
     async countWords(userParagraph) {
         // Choices for the user to try again or end the program
         const userChoices = ["Yes", "No"];
-        let paragraphList = userParagraph.split(" ");
+        let paragraphList = userParagraph.trim().split(" ");
         let wordCounter = paragraphList.length;
         console.log(`Total Words Are: ${wordCounter}`);
         // Asking the user if they want to try again
