@@ -1,0 +1,52 @@
+{
+  "name": "mubeen-quizproject",
+  "version": "1.0.0",
+  "description": "Welcome to the TypeScript Quiz App, a command-line interface for testing your knowledge of TypeScript. Built with TypeScript, Inquirer, Chalk, Chalk Animation, and Boxen.",
+  "main": "quiz.js",
+  "type": "module",
+  "bin": "quiz.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "TypeScript",
+    "CLI",
+    "Node.js",
+    "Inquirer",
+    "Chalk",
+    "Chalk Animation",
+    "Boxen",
+    "Quiz",
+    "Interactive",
+    "Command Line",
+    "User-friendly",
+    "Welcome Animation",
+    "Ending Animation",
+    "Score Tracking",
+    "Restart Option"
+  ],
+  "author": "Mubeen Mehmood",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/boxen": "^3.0.1",
+    "@types/chalk": "^2.2.0",
+    "@types/chalk-animation": "^1.6.3",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.10"
+  },
+  "dependencies": {
+    "boxen": "^7.1.1",
+    "chalk": "^5.3.0",
+    "chalk-animation": "^2.0.3",
+    "inquirer": "^9.2.13"
+  },
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/08-QuizSystemProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
+}
