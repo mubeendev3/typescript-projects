@@ -1,9 +1,14 @@
+#!/usr/bin/env node
+// Import required packages
 import inquirer from "inquirer";
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import boxen from "boxen";
+// Create a QuizApp class to manage the quiz
 class QuizApp {
+    // Private property to store the user's score
     userScore = 0;
+    // Array of quiz questions
     questions = [
         {
             question: "What does TypeScript bring to JavaScript?",
@@ -86,7 +91,9 @@ class QuizApp {
             correctAnswer: "To make a property read-only",
         },
     ];
+    // Total score of the quiz according to questions
     totalScore = this.questions.length;
+    // Display a welcome animation for the quiz
     async welcomeScreenAnimation() {
         const animation = chalkAnimation.rainbow(boxen(`
  Welcome To Our
@@ -120,6 +127,7 @@ Project
             }, duration * 1000);
         });
     }
+    // Start the quiz
     async startQuiz() {
         for (const question of this.questions) {
             await this.askQuestion(question);
@@ -127,6 +135,7 @@ Project
         console.log(chalk.bgCyan.bold(` Your Scored: ${this.userScore}/${this.totalScore}! \n`));
         await this.restartQuiz();
     }
+    // Ask a every single question
     async askQuestion(question) {
         const answer = await inquirer.prompt({
             type: "list",
@@ -136,12 +145,14 @@ Project
         });
         this.checkAnswer(answer.userAnswer, question.correctAnswer);
     }
+    // Check if the user's answer is correct
     checkAnswer(userAnswer, correctAnswer) {
         if (userAnswer === correctAnswer) {
             this.userScore++;
         }
         console.log();
     }
+    // Ask the user if they want to restart the quiz
     async restartQuiz() {
         const userChoices = ["Yes", "No"];
         const userInput = await inquirer.prompt([
