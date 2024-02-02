@@ -1,0 +1,46 @@
+{
+  "name": "mubeen-oop-project",
+  "version": "1.0.0",
+  "description": "Welcome to the Personality Checker CLI to understand the concepts of OOP, a command-line interface designed to determine a student's personality based on a series of questions. This project showcases Object-Oriented Programming (OOP) principles with classes like `Person` and `Student`.",
+  "main": "index.js",
+  "bin": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Personality Quiz",
+    "CLI",
+    "TypeScript",
+    "Object-Oriented Programming",
+    "Student",
+    "Inquirer",
+    "Interactive",
+    "Command-Line",
+    "OOP Principles",
+    "Student Personality",
+    "TS-Node",
+    "User Input",
+    "GitHub",
+    "NPM",
+    "Quiz Application"
+  ],  
+  "author": "Mubeen Mehmood",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.16"
+  },
+  "dependencies": {
+    "inquirer": "^9.2.13"
+  },
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/09-OOPProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
+}
