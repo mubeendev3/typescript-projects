@@ -1,0 +1,31 @@
+{
+  "name": "mubeen-oop-bankproject",
+  "version": "1.0.0",
+  "description": "Welcome to the OOP-Bank-App, a command-line interface (CLI) application built with TypeScript, showcasing Object-Oriented Programming (OOP) principles.",
+  "main": "index.js",
+  "type": "module",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["OOP", "Object-Oriented Programming", "TypeScript", "CLI", "Banking App", "Banking System", "Financial", "Transactions", "Customer Management", "Account Creation", "Credit", "Debit", "Transaction History", "Command-Line Interface", "Programming Project", "Node.js", "Inquirer", "Application", "Open Source", "Developer", "GitHub"],
+
+  "author": "Mubeen Mehmood",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.2.13"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.16"
+  },
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/10-OOP-BankProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
+}
