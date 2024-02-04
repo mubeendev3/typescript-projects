@@ -15,9 +15,9 @@ Welcome to the OOP-Bank-App, a command-line interface (CLI) application built wi
 
 1. Clone the repository: `git clone https://github.com/mubeendev3/typescript-projects.git`
 2. Change into the project directory: `cd 10-OOP-BankProject`
-3. Install dependencies: `npm install`
-4. Run the Student Personality Quiz CLI: `npx ts-node index.ts`
-5. Follow the prompts.
+3. Install dependencies: npm install
+4. Compile the Adventure Game CLI into .js by using this command : `tsc`
+5. Run the game.js file using: `node game.js`
 
 ## Example
 
