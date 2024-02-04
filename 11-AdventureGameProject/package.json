@@ -1,0 +1,30 @@
+{
+  "name": "mubeen-adventuregame",
+  "version": "1.0.0",
+  "description": "Welcome to AdventureGame, a simple command-line text-based game where you battle different enemies and manage your health potions. Enjoy the thrill of combat and make strategic decisions to survive!",
+  "main": "index.js",
+  "type": "module",
+  "bin": "game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["adventure", "game", "text-based", "command-line", "combat", "inquirer", "rpg", "battle", "health", "potion", "strategy", "interactive", "npm", "typescript"],
+  "author": "Mubeen Mehmood",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.2.13"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.16"
+  },
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/11-AdventureGameProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
+}
