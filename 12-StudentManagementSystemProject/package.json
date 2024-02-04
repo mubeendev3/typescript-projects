@@ -1,9 +1,10 @@
 {
   "name": "mubeen-studentmanagement-project",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This project is a console-based Student Management System implemented in TypeScript using Object-Oriented Programming (OOP) concepts. The system allows you to manage students, enroll them in courses, view balances, pay tuition fees, and show detailed student status.",
   "main": "index.js",
   "type": "module",
+  "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
