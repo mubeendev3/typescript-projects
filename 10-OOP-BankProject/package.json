@@ -1,6 +1,6 @@
 {
   "name": "mubeen-oop-bankproject",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Welcome to the OOP-Bank-App, a command-line interface (CLI) application built with TypeScript, showcasing Object-Oriented Programming (OOP) principles.",
   "main": "index.js",
   "type": "module",
