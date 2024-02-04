@@ -1,0 +1,50 @@
+{
+  "name": "mubeen-studentmanagement-project",
+  "version": "1.0.0",
+  "description": "This project is a console-based Student Management System implemented in TypeScript using Object-Oriented Programming (OOP) concepts. The system allows you to manage students, enroll them in courses, view balances, pay tuition fees, and show detailed student status.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Student Management",
+    "Student Enrollment",
+    "Tuition Payment",
+    "CLI Application",
+    "Interactive Interface",
+    "Object-Oriented Programming",
+    "TypeScript",
+    "Inquirer",
+    "Console-Based",
+    "Educational",
+    "Enrollment System",
+    "Student Information",
+    "Balance Tracking",
+    "User-Friendly",
+    "OOP Concepts",
+    "Programming Project",
+    "Academic Management",
+    "Course Enrollment",
+    "Student ID",
+    "Dynamic Prompts"
+],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.2.13"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.16"
+  },
+  "bugs": {
+    "url": "https://github.com//mubeendev3/typescript-projects/issues"
+  },
+  "homepage": "https://github.com/mubeendev3/typescript-projects/tree/main/12-StudentManagementSystemProject#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mubeendev3/typescript-projects.git"
+  },
+  "linkedin": "https://www.linkedin.com/in/mubeendeveloper/"
+}
