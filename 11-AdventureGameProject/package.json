@@ -1,6 +1,6 @@
 {
   "name": "mubeen-adventuregame",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Welcome to AdventureGame, a simple command-line text-based game where you battle different enemies and manage your health potions. Enjoy the thrill of combat and make strategic decisions to survive!",
   "main": "index.js",
   "type": "module",
